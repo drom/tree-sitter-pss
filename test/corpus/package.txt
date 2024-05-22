@@ -1,0 +1,16 @@
+============================================
+package
+============================================
+
+package foo::bar { }
+
+----
+
+(source_file
+  (portable_stimulus_description
+    (package_body_item
+      (package_declaration
+        (package_id_path
+          (id)
+          (id))))))
+
