@@ -2,12 +2,11 @@
   "name": "tree-sitter-pss",
   "version": "0.1.0",
   "description": "PSS grammar for tree-sitter",
-  "main": "index.js",
+  "main": "bindings/node",
   "types": "bindings/node",
   "scripts": {
     "gen": "tree-sitter generate",
     "install": "node-gyp-build",
-    "prepare": "node bin/install.js",
     "test": "tree-sitter test",
     "prebuildify": "prebuildify --napi --strip"
   },
