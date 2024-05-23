@@ -22,7 +22,21 @@
   {
     "type": "action_body_item",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "action_field_declaration",
+          "named": true
+        },
+        {
+          "type": "activity_scheduling_constraint",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "action_declaration",
@@ -52,6 +66,21 @@
     }
   },
   {
+    "type": "action_field_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "object_ref_field_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "action_super_spec",
     "named": true,
     "fields": {},
@@ -61,6 +90,21 @@
       "types": [
         {
           "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_scheduling_constraint",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "hierarchical_id",
           "named": true
         }
       ]
@@ -92,6 +136,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "assign_op",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "binary_operator",
@@ -161,7 +210,47 @@
           "named": true
         },
         {
+          "type": "enum_declaration",
+          "named": true
+        },
+        {
+          "type": "export_action",
+          "named": true
+        },
+        {
+          "type": "extend_stmt",
+          "named": true
+        },
+        {
+          "type": "function_decl",
+          "named": true
+        },
+        {
+          "type": "import_class_decl",
+          "named": true
+        },
+        {
+          "type": "import_function",
+          "named": true
+        },
+        {
+          "type": "import_stmt",
+          "named": true
+        },
+        {
           "type": "object_bind_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_function",
+          "named": true
+        },
+        {
+          "type": "target_template_function",
+          "named": true
+        },
+        {
+          "type": "typedef_declaration",
           "named": true
         }
       ]
@@ -279,6 +368,29 @@
     "fields": {}
   },
   {
+    "type": "enum_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_type",
+          "named": true
+        },
+        {
+          "type": "enum_item",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "enum_item",
     "named": true,
     "fields": {},
@@ -307,6 +419,95 @@
       "types": [
         {
           "type": "domain_open_range_list",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exec_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exec_kind",
+          "named": true
+        },
+        {
+          "type": "exec_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exec_block_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "exec_block",
+          "named": true
+        },
+        {
+          "type": "target_code_exec_block",
+          "named": true
+        },
+        {
+          "type": "target_file_exec_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exec_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "exec_super_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exec_super_stmt",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "export_action",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_parameter_list_prototype",
+          "named": true
+        },
+        {
+          "type": "platform_qualifier",
           "named": true
         },
         {
@@ -348,6 +549,33 @@
     }
   },
   {
+    "type": "extend_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "action_body_item",
+          "named": true
+        },
+        {
+          "type": "component_body_item",
+          "named": true
+        },
+        {
+          "type": "enum_item",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "flow_ref_field_declaration",
     "named": true,
     "fields": {},
@@ -367,6 +595,76 @@
     }
   },
   {
+    "type": "function_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_ref_path",
+          "named": true
+        },
+        {
+          "type": "type_identifier_elem",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_decl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "function_prototype",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_type",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "function_parameter_dir",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "type_category",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_parameter_dir",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "function_parameter_list",
     "named": true,
     "fields": {},
@@ -376,6 +674,48 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_parameter_list_prototype",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "function_parameter",
+          "named": true
+        },
+        {
+          "type": "varargs_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_prototype",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_parameter_list_prototype",
+          "named": true
+        },
+        {
+          "type": "function_return_type",
+          "named": true
+        },
+        {
+          "type": "id",
           "named": true
         }
       ]
@@ -399,6 +739,21 @@
         },
         {
           "type": "member_path_elem",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_return_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "data_type",
           "named": true
         }
       ]
@@ -433,6 +788,101 @@
       "types": [
         {
           "type": "member_path_elem",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_class_decl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "import_class_extends",
+          "named": true
+        },
+        {
+          "type": "import_class_function_decl",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_class_extends",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_class_function_decl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "function_prototype",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_prototype",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "platform_qualifier",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "package_import_pattern",
           "named": true
         }
       ]
@@ -611,6 +1061,11 @@
     }
   },
   {
+    "type": "object_kind",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "object_ref_field",
     "named": true,
     "fields": {},
@@ -691,7 +1146,47 @@
           "named": true
         },
         {
+          "type": "enum_declaration",
+          "named": true
+        },
+        {
+          "type": "export_action",
+          "named": true
+        },
+        {
+          "type": "extend_stmt",
+          "named": true
+        },
+        {
+          "type": "function_decl",
+          "named": true
+        },
+        {
+          "type": "import_class_decl",
+          "named": true
+        },
+        {
+          "type": "import_function",
+          "named": true
+        },
+        {
+          "type": "import_stmt",
+          "named": true
+        },
+        {
           "type": "package_declaration",
+          "named": true
+        },
+        {
+          "type": "procedural_function",
+          "named": true
+        },
+        {
+          "type": "target_template_function",
+          "named": true
+        },
+        {
+          "type": "typedef_declaration",
           "named": true
         }
       ]
@@ -800,6 +1295,11 @@
     }
   },
   {
+    "type": "platform_qualifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "portable_stimulus_description",
     "named": true,
     "fields": {},
@@ -844,6 +1344,365 @@
         },
         {
           "type": "string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_assignment_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assign_op",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "ref_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_break_stmt",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "procedural_continue_stmt",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "procedural_data_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_type",
+          "named": true
+        },
+        {
+          "type": "procedural_data_instantiation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_data_instantiation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_foreach_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "procedural_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_prototype",
+          "named": true
+        },
+        {
+          "type": "platform_qualifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_if_else_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "procedural_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_match_choice",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "open_range_list",
+          "named": true
+        },
+        {
+          "type": "procedural_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_match_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "procedural_match_choice",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_randomization_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "procedural_randomization_target",
+          "named": true
+        },
+        {
+          "type": "procedural_randomization_term",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_randomization_target",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "hierarchical_id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_randomization_term",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "procedural_repeat_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "procedural_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_return_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_sequence_block_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "procedural_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "procedural_assignment_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_break_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_continue_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_data_declaration",
+          "named": true
+        },
+        {
+          "type": "procedural_foreach_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_if_else_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_match_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_randomization_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_repeat_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_return_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_sequence_block_stmt",
+          "named": true
+        },
+        {
+          "type": "procedural_void_function_call_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_void_function_call_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "function_call",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ref_path",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bit_slice",
+          "named": true
+        },
+        {
+          "type": "hierarchical_id",
+          "named": true
+        },
+        {
+          "type": "static_ref_path",
           "named": true
         }
       ]
@@ -948,6 +1807,40 @@
     }
   },
   {
+    "type": "struct_body_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "exec_block_stmt",
+          "named": true
+        },
+        {
+          "type": "typedef_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "struct_kind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "object_kind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "struct_literal",
     "named": true,
     "fields": {},
@@ -976,6 +1869,86 @@
         },
         {
           "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "struct_super_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "target_code_exec_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exec_kind",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "target_file_exec_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "QUOTED_STRING",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "target_template_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_prototype",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "string_literal",
           "named": true
         }
       ]
@@ -1042,6 +2015,21 @@
     }
   },
   {
+    "type": "type_category",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "struct_kind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type_identifier",
     "named": true,
     "fields": {},
@@ -1091,6 +2079,25 @@
     }
   },
   {
+    "type": "typedef_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_type",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "unary_operator",
     "named": true,
     "fields": {}
@@ -1105,6 +2112,29 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "varargs_parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_type",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "type_category",
           "named": true
         }
       ]
@@ -1176,6 +2206,10 @@
   },
   {
     "type": "..",
+    "named": false
+  },
+  {
+    "type": "...",
     "named": false
   },
   {
@@ -1287,8 +2321,20 @@
     "named": true
   },
   {
+    "type": "break",
+    "named": false
+  },
+  {
+    "type": "buffer",
+    "named": false
+  },
+  {
     "type": "chandle_type",
     "named": true
+  },
+  {
+    "type": "class",
+    "named": false
   },
   {
     "type": "comment",
@@ -1303,11 +2349,39 @@
     "named": false
   },
   {
+    "type": "continue",
+    "named": false
+  },
+  {
+    "type": "default",
+    "named": false
+  },
+  {
+    "type": "else",
+    "named": false
+  },
+  {
     "type": "enum",
     "named": false
   },
   {
+    "type": "exec",
+    "named": false
+  },
+  {
+    "type": "exec_kind",
+    "named": true
+  },
+  {
+    "type": "export",
+    "named": false
+  },
+  {
     "type": "extend",
+    "named": false
+  },
+  {
+    "type": "file",
     "named": false
   },
   {
@@ -1323,8 +2397,20 @@
     "named": true
   },
   {
+    "type": "foreach",
+    "named": false
+  },
+  {
+    "type": "function",
+    "named": false
+  },
+  {
     "type": "id",
     "named": true
+  },
+  {
+    "type": "if",
+    "named": false
   },
   {
     "type": "import",
@@ -1332,6 +2418,14 @@
   },
   {
     "type": "in",
+    "named": false
+  },
+  {
+    "type": "inout",
+    "named": false
+  },
+  {
+    "type": "input",
     "named": false
   },
   {
@@ -1351,8 +2445,16 @@
     "named": false
   },
   {
+    "type": "match",
+    "named": false
+  },
+  {
     "type": "null_ref",
     "named": true
+  },
+  {
+    "type": "output",
+    "named": false
   },
   {
     "type": "package",
@@ -1371,7 +2473,27 @@
     "named": false
   },
   {
+    "type": "randomize",
+    "named": false
+  },
+  {
     "type": "ref",
+    "named": false
+  },
+  {
+    "type": "repeat",
+    "named": false
+  },
+  {
+    "type": "resource",
+    "named": false
+  },
+  {
+    "type": "return",
+    "named": false
+  },
+  {
+    "type": "sequence",
     "named": false
   },
   {
@@ -1379,11 +2501,35 @@
     "named": false
   },
   {
+    "type": "solve",
+    "named": false
+  },
+  {
+    "type": "state",
+    "named": false
+  },
+  {
+    "type": "static",
+    "named": false
+  },
+  {
+    "type": "stream",
+    "named": false
+  },
+  {
     "type": "string",
     "named": false
   },
   {
+    "type": "struct",
+    "named": false
+  },
+  {
     "type": "super",
+    "named": false
+  },
+  {
+    "type": "target",
     "named": false
   },
   {
@@ -1392,6 +2538,14 @@
   },
   {
     "type": "typedef",
+    "named": false
+  },
+  {
+    "type": "void",
+    "named": false
+  },
+  {
+    "type": "while",
     "named": false
   },
   {

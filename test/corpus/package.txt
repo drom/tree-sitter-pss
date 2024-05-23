@@ -2,15 +2,44 @@
 package
 ============================================
 
+import foo_pkg::*;
+
 package foo::bar { }
+
+component sys_c {
+  /* begin
+   sys_c */
+  action mem_a {
+    // begin mem_a
+
+  }
+}
 
 ----
 
 (source_file
   (portable_stimulus_description
     (package_body_item
+      (import_stmt
+        (package_import_pattern
+          (type_identifier
+            (type_identifier_elem
+              (id)))
+          (package_import_qualifier
+            (package_import_wildcard))))))
+  (portable_stimulus_description
+    (package_body_item
       (package_declaration
         (package_id_path
           (id)
-          (id))))))
+          (id)))))
+  (portable_stimulus_description
+    (package_body_item
+      (component_declaration
+        (id)
+        (comment)
+        (component_body_item
+          (action_declaration
+            (id)
+            (comment)))))))
 

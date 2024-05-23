@@ -24,7 +24,7 @@ const rules = {
 
   portable_stimulus_description: $ => choice(
     $.package_body_item,
-    // $.package_declaration,
+    /* $.package_declaration, Already included */
     // $.component_declaration
   ),
 
@@ -46,17 +46,17 @@ const rules = {
   package_body_item: $ => choice(
     $.abstract_action_declaration,
     // $.struct_declaration,
-    // $.enum_declaration,
+    $.enum_declaration,
     // $.covergroup_declaration,
-    // $.function_decl,
-    // $.import_class_decl,
-    // $.procedural_function,
-    // $.import_function,
-    // $.target_template_function,
-    // $.export_action,
-    // $.typedef_declaration,
-    // $.import_stmt,
-    // $.extend_stmt,
+    $.function_decl,
+    $.import_class_decl,
+    $.procedural_function,
+    $.import_function,
+    $.target_template_function,
+    $.export_action,
+    $.typedef_declaration,
+    $.import_stmt,
+    $.extend_stmt,
     // $.const_field_declaration,
     $.component_declaration,
     $.package_declaration,
@@ -143,11 +143,11 @@ const rules = {
     // $.activity_declaration,
     // $.override_declaration,
     // $.constraint_declaration,
-    // $.action_field_declaration,
+    $.action_field_declaration,
     // $.symbol_declaration,
     // $.covergroup_declaration,
     // $.exec_block_stmt,
-    // $.activity_scheduling_constraint,
+    $.activity_scheduling_constraint,
     // $.attr_group,
     // $.compile_assert_stmt,
     // $.covergroup_instantiation,
@@ -187,13 +187,17 @@ const rules = {
     ';'
   ),
 
-  // flow_object_type: $ => choice(
-  //   $.buffer_type_identifier,
-  //   $.state_type_identifier,
-  //   $.stream_type_identifier
-  // ),
+  /*
+  flow_object_type: $ => choice(
+    $.buffer_type_identifier,
+    $.state_type_identifier,
+    $.stream_type_identifier
+  ),
+  */
 
-  // resource_object_type: $ => $.resource_type_identifier,
+  /*
+  resource_object_type: $ => $.resource_type_identifier,
+  */
 
   object_ref_field: $ => seq(
     $.id, // identifier
@@ -230,6 +234,353 @@ const rules = {
     ';'
   ),
 
+  // B.3 Struct declarations
+
+  struct_declaration: $ => seq(
+    $.struct_kind,
+    $.id, // identifier
+    optional($.template_param_decl_list),
+    optional($.struct_super_spec),
+    '{',
+    repeat($.struct_body_item),
+    '}'
+  ),
+
+  struct_kind: $ => choice(
+    'struct',
+    $.object_kind
+  ),
+
+  object_kind: $ => choice(
+    'buffer',
+    'stream',
+    'state',
+    'resource',
+  ),
+
+  struct_super_spec: $ => seq(':', $.type_identifier),
+
+  struct_body_item: $ => choice(
+    // $.constraint_declaration,
+    // $.attr_field,
+    $.typedef_declaration,
+    $.exec_block_stmt,
+    // $.attr_group,
+    // $.compile_assert_stmt,
+    // $.covergroup_declaration,
+    // $.covergroup_instantiation,
+    // $.struct_body_compile_if,
+    ';'
+  ),
+
+  // B.4 Exec blocks
+
+  exec_block_stmt: $ => choice(
+    $.exec_block ,
+    $.target_code_exec_block ,
+    $.target_file_exec_block,
+    ';'
+  ),
+
+  exec_block: $ => seq('exec', $.exec_kind, '{', repeat($.exec_stmt), '}'),
+
+  exec_kind: $ => token(choice(
+    'pre_solve',
+    'post_solve',
+    'body',
+    'header',
+    'declaration',
+    'run_start',
+    'run_end',
+    'init_up',
+    'init_down',
+    'init',
+  )),
+
+  exec_stmt: $ => choice(
+    $.procedural_stmt,
+    $.exec_super_stmt
+  ),
+
+  exec_super_stmt: $ => seq('super', ';'),
+
+  target_code_exec_block: $ => seq(
+    'exec',
+    $.exec_kind,
+    $.id, // language_identifier
+    '=',
+    $.string_literal,
+    ';'
+  ),
+
+  target_file_exec_block: $ => seq(
+    'exec', 'file',
+    $.QUOTED_STRING, // filename_string
+    '=', $.string_literal, ';'
+  ),
+
+  // B.5 Functions
+
+  procedural_function: $ => seq(
+    optional($.platform_qualifier),
+    optional('pure'),
+    optional('static'),
+    'function',
+    $.function_prototype,
+    '{',
+    // repeat($.procedural_stmt),
+    '}'
+  ),
+
+  function_decl: $ => seq(
+    optional('pure'),
+    optional('static'),
+    'function',
+    $.function_prototype,
+    ';'
+  ),
+
+  function_prototype: $ => seq(
+    $.function_return_type,
+    $.id, // function_identifier,
+    $.function_parameter_list_prototype
+  ),
+
+  function_return_type: $ => choice(
+    'void',
+    $.data_type
+  ),
+
+  function_parameter_list_prototype: $ => choice(
+    seq(
+      '(',
+      optseq(
+        $.function_parameter,
+        repseq(',', $.function_parameter)
+      ),
+      ')'
+    ),
+    seq(
+      '(',
+      repseq($.function_parameter, ','),
+      $.varargs_parameter,
+      ')'
+    )
+  ),
+
+  function_parameter: $ => choice(
+    seq(
+      optional($.function_parameter_dir),
+      $.data_type,
+      $.id, // identifier
+      optseq(
+        '=',
+        $.expression // constant_expression
+      )
+    ),
+    seq(
+      choice('type', seq('ref', $.type_category), 'struct'),
+      $.id // identifier
+    )
+  ),
+
+  function_parameter_dir: $ => choice('input', 'output', 'inout'),
+
+  varargs_parameter: $ => seq(
+    choice($.data_type, 'type', seq('ref', $.type_category), 'struct'),
+    '...',
+    $.id // identifier
+  ),
+
+  // B.6 Foreign procedural interface
+
+  import_function: $ => choice(
+    seq(
+      'import',
+      optional($.platform_qualifier),
+      optional(
+        $.id // language_identifier
+      ),
+      'function',
+      $.type_identifier,
+      ';'
+    ),
+    seq(
+      'import',
+      optional($.platform_qualifier),
+      optional(
+        $.id // language_identifier
+      ),
+      optional('static'),
+      'function',
+      $.function_prototype,
+      ';'
+    )
+  ),
+
+  platform_qualifier: $ => choice('target', 'solve'),
+
+  target_template_function: $ => seq(
+    'target',
+    $.id, // language_identifier,
+    optional('static'),
+    'function',
+    $.function_prototype,
+    '=',
+    $.string_literal,
+    ';'
+  ),
+
+  import_class_decl: $ => seq(
+    'import', 'class', $.id, // import_class_identifier,
+    optional($.import_class_extends),
+    '{',
+    repeat($.import_class_function_decl),
+    '}'
+  ),
+
+  import_class_extends: $ => seq(
+    ':', $.type_identifier, repseq(',', $.type_identifier)
+  ),
+
+  import_class_function_decl: $ => seq($.function_prototype, ';'),
+
+  export_action: $ => seq(
+    'export',
+    optional($.platform_qualifier),
+    $.type_identifier, // action_type_identifier
+    $.function_parameter_list_prototype,
+    ';'
+  ),
+
+  // B.7 Procedural statements
+
+  procedural_stmt: $ => choice(
+    $.procedural_sequence_block_stmt,
+    $.procedural_data_declaration,
+    $.procedural_assignment_stmt,
+    $.procedural_void_function_call_stmt,
+    $.procedural_return_stmt,
+    $.procedural_repeat_stmt,
+    $.procedural_foreach_stmt,
+    $.procedural_if_else_stmt,
+    $.procedural_match_stmt,
+    $.procedural_break_stmt,
+    $.procedural_continue_stmt,
+    $.procedural_randomization_stmt,
+    // $.procedural_compile_if,
+    ';'
+  ),
+
+  procedural_sequence_block_stmt: $ => seq(
+    optional('sequence'),
+    '{',
+    repeat($.procedural_stmt),
+    '}'
+  ),
+
+  procedural_data_declaration: $ => seq(
+    $.data_type,
+    $.procedural_data_instantiation,
+    repseq(',', $.procedural_data_instantiation),
+    ';'
+  ),
+
+  procedural_data_instantiation: $ => seq(
+    $.id, // identifier
+    // optional($.array_dim),
+    optseq('=', $.expression)
+  ),
+
+  procedural_assignment_stmt: $ => seq(
+    $.ref_path,
+    $.assign_op,
+    $.expression,
+    ';'
+  ),
+
+  procedural_void_function_call_stmt: $ => seq(
+    optseq('(', 'void', ')'),
+    $.function_call,
+    ';'
+  ),
+
+  procedural_return_stmt: $ => seq(
+    'return', optional($.expression), ';'
+  ),
+
+  procedural_repeat_stmt: $ => choice(
+    seq(
+      'repeat', '(', optseq(
+        $.id, // identifier
+        ':'
+      ),
+      $.expression,
+      ')', $.procedural_stmt
+    ),
+    seq(
+      'repeat', $.procedural_stmt, 'while', '(', $.expression, ')', ';'
+    ),
+    seq(
+      'while', '(', $.expression, ')', $.procedural_stmt
+    )
+  ),
+
+  procedural_foreach_stmt: $ => seq(
+    'foreach', '(',
+    optseq(
+      $.id, // iterator_identifier
+      ':'
+    ),
+    $.expression,
+    optseq(
+      '[',
+      $.id, // index_identifier
+      ']'
+    ),
+    ')',
+    $.procedural_stmt
+  ),
+
+  procedural_if_else_stmt: $ => seq(
+    'if', '(', $.expression, ')', $.procedural_stmt,
+    optseq('else', $.procedural_stmt)
+  ),
+
+  procedural_match_stmt: $ => seq(
+    'match', '(',
+    $.expression, // match_expression
+    ')',
+    '{',
+     $.procedural_match_choice,
+     repeat($.procedural_match_choice),
+     '}'
+  ),
+
+  procedural_match_choice: $ => choice(
+    seq('[', $.open_range_list, ']', ':', $.procedural_stmt),
+    seq('default', ':', $.procedural_stmt)
+  ),
+
+  procedural_break_stmt: $ => seq('break', ';'),
+
+  procedural_continue_stmt: $ => seq('continue', ';'),
+
+  procedural_randomization_stmt: $ => seq(
+    'randomize',
+    $.procedural_randomization_target,
+    $.procedural_randomization_term
+  ),
+
+  procedural_randomization_target: $ => seq(
+    $.hierarchical_id, repseq(',', $.hierarchical_id)
+  ),
+
+  procedural_randomization_term: $ => choice(
+    // seq('with', $.constraint_set),
+    ';'
+  ),
+
   // B.8 Component declarations
 
   component_declaration: $ => seq(
@@ -252,17 +603,17 @@ const rules = {
     $.object_bind_stmt,
     // $.exec_block,
     // $.struct_declaration,
-    // $.enum_declaration,
+    $.enum_declaration,
     // $.covergroup_declaration,
-    // $.function_decl,
-    // $.import_class_decl,
-    // $.procedural_function,
-    // $.import_function,
-    // $.target_template_function,
-    // $.export_action,
-    // $.typedef_declaration,
-    // $.import_stmt,
-    // $.extend_stmt,
+    $.function_decl,
+    $.import_class_decl,
+    $.procedural_function,
+    $.import_function,
+    $.target_template_function,
+    $.export_action,
+    $.typedef_declaration,
+    $.import_stmt,
+    $.extend_stmt,
     // $.compile_assert_stmt,
     // $.attr_group,
     // $.component_body_compile_if,
@@ -328,6 +679,12 @@ const rules = {
     '*'
   ),
 
+  // B.9 Activity statements
+
+  // B.10 Overrides
+
+  // B.11 Data declarations
+
   // B.12 Template types (AST)
 
   template_param_decl_list: $ => seq(
@@ -365,11 +722,11 @@ const rules = {
     $.type_identifier
   ),
 
-  // type_category: $ => choice(
-  //   'action',
-  //   'component',
-  //   $.struct_kind
-  // ),
+  type_category: $ => choice(
+    'action',
+    'component',
+    $.struct_kind
+  ),
 
   value_param_decl: $ => seq(
     $.data_type,
@@ -513,6 +870,12 @@ const rules = {
     $.type_identifier,
     ';'
   ),
+
+  // B.14 Constraints
+
+  // B.15 Coverage specification
+
+  // B.16 Conditional compilation
 
   // B.17 Expressions
 
