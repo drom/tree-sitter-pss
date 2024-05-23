@@ -34,7 +34,7 @@
   ],
   "devDependencies": {
     "@drom/eslint-config": "^0.12.0",
-    "eslint": "^9.3.0",
+    "eslint": "^8.56.0",
     "tree-sitter-cli": "^0.22.6",
     "prebuildify": "^6.0.0"
   },
