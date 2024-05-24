@@ -17,7 +17,7 @@ function sep1(separator, rule) {
 
 const rules = {
 
-  // PSS 2.1
+  // PSS 3.0
   // Annex B
 
   source_file: $ => repeat($.portable_stimulus_description),
@@ -25,7 +25,7 @@ const rules = {
   portable_stimulus_description: $ => choice(
     $.package_body_item,
     /* $.package_declaration, Already included */
-    // $.component_declaration
+    /* $.component_declaration Already included */
   ),
 
   // B.1 Package declarations
@@ -144,7 +144,7 @@ const rules = {
     // $.override_declaration,
     // $.constraint_declaration,
     $.action_field_declaration,
-    // $.symbol_declaration,
+    $.symbol_declaration,
     // $.covergroup_declaration,
     // $.exec_block_stmt,
     $.activity_scheduling_constraint,
@@ -681,11 +681,216 @@ const rules = {
 
   // B.9 Activity statements
 
+  activity_stmt: $ => choice(
+    seq(
+      optseq(
+        $.id, // label_identifier
+        ':'
+      ),
+      $.labeled_activity_stmt
+    ),
+    $.activity_action_traversal_stmt,
+    // $.activity_data_field,
+    $.activity_bind_stmt,
+    // $.action_handle_declaration,
+    // $.activity_constraint_stmt,
+    $.activity_scheduling_constraint,
+    ';' // stmt_terminator
+  ),
+
+  labeled_activity_stmt: $ => choice(
+    $.activity_sequence_block_stmt,
+    $.activity_parallel_stmt,
+    $.activity_schedule_stmt,
+    $.activity_repeat_stmt,
+    $.activity_foreach_stmt,
+    $.activity_select_stmt,
+    $.activity_if_else_stmt,
+    $.activity_match_stmt,
+    $.activity_replicate_stmt,
+    $.activity_super_stmt,
+    $.activity_atomic_block_stmt,
+    $.symbol_call
+  ),
+
+  activity_action_traversal_stmt: $ => choice(
+    seq(
+      $.id, // identifier
+      optseq('[', $.expression, ']'), $.inline_constraints_or_empty
+    ),
+    seq(
+      optseq('[',
+        $.id, // label_identifier
+        ':'
+      ),
+      'do',
+      $.type_identifier,
+      $.inline_constraints_or_empty
+    )
+  ),
+
+  inline_constraints_or_empty: $ => choice(
+    // seq('with', $.constraint_set),
+    ';'
+  ),
+
+  activity_sequence_block_stmt: $ => seq(
+    optional('sequence'), '{', repeat($.activity_stmt), '}'
+  ),
+
+  activity_parallel_stmt: $ => seq(
+    'parallel', optional($.activity_join_spec), '{', repeat($.activity_stmt), '}'
+  ),
+
+  activity_schedule_stmt: $ => seq(
+    'schedule', optional($.activity_join_spec), '{', repeat($.activity_stmt), '}'
+  ),
+
+  activity_join_spec: $ => choice(
+    $.activity_join_branch,
+    $.activity_join_select,
+    $.activity_join_none,
+    $.activity_join_first
+  ),
+
+  activity_join_branch: $ => seq(
+    'join_branch', '(',
+    $.id, // label_identifier
+    repseq(
+      ',',
+      $.id // label_identifier
+    ),
+    ')'
+  ),
+
+  activity_join_select: $ => seq('join_select', '(', $.expression, ')'),
+
+  activity_join_none: $ => 'join_none',
+
+  activity_join_first: $ =>seq('join_first', '(', $.expression, ')'),
+
+  activity_repeat_stmt: $ => choice(
+    seq(
+      'repeat', '(',
+      optseq(
+        $.id, // index_identifier
+        ':'
+      ),
+      $.expression, ')', $.activity_stmt
+    ),
+    seq('repeat', $.activity_stmt, 'while', '(', $.expression, ')', ';')
+  ),
+
+  activity_foreach_stmt: $ => seq(
+    'foreach', '(',
+    repseq(
+      $.id, // iterator_identifier
+      ':'
+    ),
+    $.expression,
+    optseq(
+      '[',
+      $.id, // index_identifier
+      ']'
+    ),
+    ')',
+    $.activity_stmt
+  ),
+
+  activity_select_stmt: $ => seq(
+    'select',
+    '{',
+    $.select_branch,
+    $.select_branch,
+    repeat($.select_branch),
+    '}'
+  ),
+
+  select_branch: $ => seq(
+    optseq(
+      optseq('(', $.expression, ')'),
+      optseq('[', $.expression, ']'),
+      ':'
+    ),
+    $.activity_stmt
+  ),
+
+  activity_if_else_stmt: $ => prec.left(seq(
+    'if', '(', $.expression, ')', $.activity_stmt, optseq('else', $.activity_stmt)
+  )),
+
+  activity_match_stmt: $ => seq(
+    'match', '(',
+    $.expression, // match_expression
+    ')',
+    '{', $.match_choice, repeat($.match_choice), '}'
+  ),
+
+  // match_expression ::= expression
+
+  match_choice: $ => choice(
+    seq('[', $.open_range_list, ']', ':', $.activity_stmt),
+    seq('default', ':', $.activity_stmt)
+  ),
+
+  activity_replicate_stmt: $ => seq(
+    'replicate',
+    '(',
+    optseq(
+      $.id, // index_identifier
+      ':'
+    ),
+    $.expression,
+    ')',
+    optseq(
+      $.id, // label_identifier
+      '[', ']', ':'
+    ),
+    $.labeled_activity_stmt
+  ),
+
+  activity_super_stmt: $ => seq('super', ';'),
+
+  activity_atomic_block_stmt: $ => seq(
+    'atomic', '{', repeat($.activity_stmt), '}'
+  ),
+
+  activity_bind_stmt: $ => seq(
+    'bind', $.hierarchical_id, $.activity_bind_item_or_list, ';'
+  ),
+
+  activity_bind_item_or_list: $ => choice(
+    $.hierarchical_id,
+    seq('{', $.hierarchical_id_list, '}')
+  ),
+
+  // activity_constraint_stmt: $ => seq($.constraint, $.constraint_set),
+
+  symbol_declaration: $ => seq(
+    'symbol',
+    $.id, // symbol_identifier
+    optseq(
+      '(',
+      optseq($.symbol_param, repseq(',', $.symbol_param)), // symbol_paramlist
+      ')'
+    ),
+    '{', repeat($.activity_stmt), '}'
+  ),
+
+  // symbol_paramlist ::= [ symbol_param { , symbol_param } ]
+
+  symbol_param: $ => seq(
+    $.data_type,
+    $.id // identifier
+  ),
+
   // B.10 Overrides
 
-  // B.11 Data declarations
+  // B.11 Data coverage specification
 
-  // B.12 Template types (AST)
+  // B.12 Behavioral coverage specification
+
+  // B.13 Template types
 
   template_param_decl_list: $ => seq(
     '<',
@@ -751,7 +956,7 @@ const rules = {
     $.data_type
   ),
 
-  // B.13 Data types
+  // B.14 Data types
 
   data_type: $ => choice(
     // $.scalar_data_type,
@@ -871,13 +1076,13 @@ const rules = {
     ';'
   ),
 
-  // B.14 Constraints
+  // B.15 Constraints
 
-  // B.15 Coverage specification
+  // B.16 Coverage specification
 
-  // B.16 Conditional compilation
+  // B.17 Conditional compilation
 
-  // B.17 Expressions
+  // B.18 Expressions
 
   // constant_expression: $ => $.expression,
 
@@ -921,8 +1126,7 @@ const rules = {
   ),
 
   open_range_value: $ => seq(
-    $.open_range_value,
-    optseq('..', $.open_range_value)
+    $.expression, optseq('..', $.expression)
   ),
 
   // collection_expression: $ => $.expression,
@@ -1003,7 +1207,7 @@ const rules = {
     ), ')'
   ),
 
-  // B.18 Identifiers
+  // B.19 Identifiers
 
   id: $ => /[a-zA-Z_]\w*/,
 
@@ -1034,7 +1238,7 @@ const rules = {
     optional($.template_param_value_list)
   ),
 
-  // B.19 Numbers and literals
+  // B.20 Numbers and literals
 
   number: $ => choice(
     $.integer_number,
@@ -1093,7 +1297,7 @@ const rules = {
 
   null_ref: $ => token('null'),
 
-  // B.20 Additional lexical conventions
+  // B.21 Additional lexical conventions
 
   comment: $ => token(choice(
     seq('//', /.*/),

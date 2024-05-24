@@ -34,6 +34,10 @@
         {
           "type": "activity_scheduling_constraint",
           "named": true
+        },
+        {
+          "type": "symbol_declaration",
+          "named": true
         }
       ]
     }
@@ -96,6 +100,303 @@
     }
   },
   {
+    "type": "activity_action_traversal_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "inline_constraints_or_empty",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_atomic_block_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_bind_item_or_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "hierarchical_id",
+          "named": true
+        },
+        {
+          "type": "hierarchical_id_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_bind_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "activity_bind_item_or_list",
+          "named": true
+        },
+        {
+          "type": "hierarchical_id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_foreach_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "activity_stmt",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_if_else_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "activity_stmt",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_join_branch",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_join_first",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_join_select",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_join_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "activity_join_branch",
+          "named": true
+        },
+        {
+          "type": "activity_join_first",
+          "named": true
+        },
+        {
+          "type": "activity_join_none",
+          "named": true
+        },
+        {
+          "type": "activity_join_select",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_match_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "match_choice",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_parallel_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "activity_join_spec",
+          "named": true
+        },
+        {
+          "type": "activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_repeat_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "activity_stmt",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_replicate_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "labeled_activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_schedule_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "activity_join_spec",
+          "named": true
+        },
+        {
+          "type": "activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "activity_scheduling_constraint",
     "named": true,
     "fields": {},
@@ -109,6 +410,72 @@
         }
       ]
     }
+  },
+  {
+    "type": "activity_select_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "select_branch",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_sequence_block_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "activity_action_traversal_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_bind_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_scheduling_constraint",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "labeled_activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_super_stmt",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "aggregate_literal",
@@ -794,6 +1161,21 @@
     }
   },
   {
+    "type": "hierarchical_id_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "hierarchical_id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "import_class_decl",
     "named": true,
     "fields": {},
@@ -889,6 +1271,11 @@
     }
   },
   {
+    "type": "inline_constraints_or_empty",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "integer_atom_type",
     "named": true,
     "fields": {}
@@ -911,6 +1298,65 @@
         },
         {
           "type": "integer_atom_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "labeled_activity_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "activity_atomic_block_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_foreach_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_if_else_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_match_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_parallel_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_repeat_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_replicate_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_schedule_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_select_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_sequence_block_stmt",
+          "named": true
+        },
+        {
+          "type": "activity_super_stmt",
+          "named": true
+        },
+        {
+          "type": "symbol_call",
           "named": true
         }
       ]
@@ -941,6 +1387,25 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "match_choice",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "activity_stmt",
+          "named": true
+        },
+        {
+          "type": "open_range_list",
           "named": true
         }
       ]
@@ -1123,7 +1588,7 @@
       "required": true,
       "types": [
         {
-          "type": "open_range_value",
+          "type": "expression",
           "named": true
         }
       ]
@@ -1743,6 +2208,25 @@
     }
   },
   {
+    "type": "select_branch",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "activity_stmt",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -1884,6 +2368,67 @@
       "types": [
         {
           "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "symbol_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_parameter_list",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "symbol_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "activity_stmt",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "symbol_param",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "symbol_param",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_type",
+          "named": true
+        },
+        {
+          "type": "id",
           "named": true
         }
       ]
@@ -2297,11 +2842,19 @@
     "named": false
   },
   {
+    "type": "activity_join_none",
+    "named": true
+  },
+  {
     "type": "array",
     "named": false
   },
   {
     "type": "as",
+    "named": false
+  },
+  {
+    "type": "atomic",
     "named": false
   },
   {
@@ -2354,6 +2907,10 @@
   },
   {
     "type": "default",
+    "named": false
+  },
+  {
+    "type": "do",
     "named": false
   },
   {
@@ -2437,6 +2994,18 @@
     "named": true
   },
   {
+    "type": "join_branch",
+    "named": false
+  },
+  {
+    "type": "join_first",
+    "named": false
+  },
+  {
+    "type": "join_select",
+    "named": false
+  },
+  {
     "type": "list",
     "named": false
   },
@@ -2465,6 +3034,10 @@
     "named": true
   },
   {
+    "type": "parallel",
+    "named": false
+  },
+  {
     "type": "pool",
     "named": false
   },
@@ -2485,11 +3058,23 @@
     "named": false
   },
   {
+    "type": "replicate",
+    "named": false
+  },
+  {
     "type": "resource",
     "named": false
   },
   {
     "type": "return",
+    "named": false
+  },
+  {
+    "type": "schedule",
+    "named": false
+  },
+  {
+    "type": "select",
     "named": false
   },
   {
@@ -2526,6 +3111,10 @@
   },
   {
     "type": "super",
+    "named": false
+  },
+  {
+    "type": "symbol",
     "named": false
   },
   {
