@@ -45,6 +45,7 @@ const rules = {
 
   package_body_item: $ => choice(
     $.abstract_action_declaration,
+    $.abstract_monitor_declaration, // 3.0
     // $.struct_declaration,
     $.enum_declaration,
     // $.covergroup_declaration,
@@ -57,12 +58,12 @@ const rules = {
     $.typedef_declaration,
     $.import_stmt,
     $.extend_stmt,
-    // $.const_field_declaration,
+    $.const_field_declaration,
     $.component_declaration,
     $.package_declaration,
     // $.compile_assert_stmt,
     // $.package_body_compile_if,
-    token(';') // $.stmt_terminator
+    token(';') // stmt_terminator
   ),
 
   import_stmt: $ => seq(
@@ -119,9 +120,9 @@ const rules = {
     )
   ),
 
-  // const_field_declaration: $ => seq(
-  //   optional('static'), 'const', $.data_declaration
-  // ),
+  const_field_declaration: $ => seq(
+    optional('static'), 'const', $.data_declaration
+  ),
 
   // B.2 Action declarations
 
@@ -140,29 +141,29 @@ const rules = {
   action_super_spec: $ => seq(':', $.type_identifier),
 
   action_body_item: $ => choice(
-    // $.activity_declaration,
-    // $.override_declaration,
+    $.activity_declaration,
+    $.override_declaration,
     // $.constraint_declaration,
     $.action_field_declaration,
     $.symbol_declaration,
     // $.covergroup_declaration,
     // $.exec_block_stmt,
     $.activity_scheduling_constraint,
-    // $.attr_group,
+    $.attr_group,
     // $.compile_assert_stmt,
     // $.covergroup_instantiation,
     // $.action_body_compile_if,
     ';' // stmt_terminator
   ),
 
-  // activity_declaration: $ => seq(
-  //   'activity', '{', repeat($.activity_stmt), '}'
-  // ),
+  activity_declaration: $ => seq(
+    'activity', '{', repeat($.activity_stmt), '}'
+  ),
 
   action_field_declaration: $ => choice(
-    // $.attr_field,
-    // $.activity_data_field,
-    // $.action_handle_declaration,
+    $.attr_field,
+    $.activity_data_field,
+    $.action_handle_declaration,
     $.object_ref_field_declaration
   ),
 
@@ -201,27 +202,27 @@ const rules = {
 
   object_ref_field: $ => seq(
     $.id, // identifier
-    // optional($.array_dim)
+    optional($.array_dim)
   ),
 
 
-  // action_handle_declaration: $ => seq(
-  //   $.type_identifier, // action_type_identifier,
-  //   $.action_instantiation,
-  //   ';'
-  // ),
+  action_handle_declaration: $ => seq(
+    $.type_identifier, // action_type_identifier,
+    $.action_instantiation,
+    ';'
+  ),
 
-  // action_instantiation: $ => seq(
-  //   $.id, // action_handle_identifier
-  //   optional($.array_dim),
-  //   repseq(
-  //     ',',
-  //     $.id, // action_handle_identifier
-  //     optional($.array_dim),
-  //   )
-  // ),
+  action_instantiation: $ => seq(
+    $.id, // action_handle_identifier
+    optional($.array_dim),
+    repseq(
+      ',',
+      $.id, // action_handle_identifier
+      optional($.array_dim)
+    )
+  ),
 
-  // activity_data_field: $ => seq('action', $.data_declaration),
+  activity_data_field: $ => seq('action', $.data_declaration),
 
   activity_scheduling_constraint: $ => seq(
     'constraint', /(parallel|sequence)/,
@@ -252,20 +253,17 @@ const rules = {
   ),
 
   object_kind: $ => choice(
-    'buffer',
-    'stream',
-    'state',
-    'resource',
+    'buffer', 'stream', 'state', 'resource'
   ),
 
   struct_super_spec: $ => seq(':', $.type_identifier),
 
   struct_body_item: $ => choice(
     // $.constraint_declaration,
-    // $.attr_field,
+    $.attr_field,
     $.typedef_declaration,
     $.exec_block_stmt,
-    // $.attr_group,
+    $.attr_group,
     // $.compile_assert_stmt,
     // $.covergroup_declaration,
     // $.covergroup_instantiation,
@@ -294,7 +292,7 @@ const rules = {
     'run_end',
     'init_up',
     'init_down',
-    'init',
+    'init'
   )),
 
   exec_stmt: $ => choice(
@@ -339,6 +337,8 @@ const rules = {
     $.function_prototype,
     ';'
   ),
+
+  platform_qualifier: $ => choice('target', 'solve'),
 
   function_prototype: $ => seq(
     $.function_return_type,
@@ -418,8 +418,6 @@ const rules = {
     )
   ),
 
-  platform_qualifier: $ => choice('target', 'solve'),
-
   target_template_function: $ => seq(
     'target',
     $.id, // language_identifier,
@@ -469,14 +467,13 @@ const rules = {
     $.procedural_continue_stmt,
     $.procedural_randomization_stmt,
     // $.procedural_compile_if,
+    $.procedural_yield_stmt, // 3.0
     ';'
   ),
 
   procedural_sequence_block_stmt: $ => seq(
     optional('sequence'),
-    '{',
-    repeat($.procedural_stmt),
-    '}'
+    '{', repeat($.procedural_stmt), '}'
   ),
 
   procedural_data_declaration: $ => seq(
@@ -488,7 +485,7 @@ const rules = {
 
   procedural_data_instantiation: $ => seq(
     $.id, // identifier
-    // optional($.array_dim),
+    optional($.array_dim),
     optseq('=', $.expression)
   ),
 
@@ -552,9 +549,9 @@ const rules = {
     $.expression, // match_expression
     ')',
     '{',
-     $.procedural_match_choice,
-     repeat($.procedural_match_choice),
-     '}'
+    $.procedural_match_choice,
+    repeat($.procedural_match_choice),
+    '}'
   ),
 
   procedural_match_choice: $ => choice(
@@ -581,6 +578,8 @@ const rules = {
     ';'
   ),
 
+  procedural_yield_stmt: $ => seq('yield', ';'), // 3.0
+
   // B.8 Component declarations
 
   component_declaration: $ => seq(
@@ -595,8 +594,8 @@ const rules = {
   component_super_spec: $ => seq(':', $.type_identifier),
 
   component_body_item: $ => choice(
-    // $.override_declaration,
-    // $.component_data_declaration,
+    $.override_declaration,
+    $.component_data_declaration,
     $.component_pool_declaration,
     $.action_declaration,
     $.abstract_action_declaration,
@@ -615,16 +614,16 @@ const rules = {
     $.import_stmt,
     $.extend_stmt,
     // $.compile_assert_stmt,
-    // $.attr_group,
+    $.attr_group,
     // $.component_body_compile_if,
-    // $.stmt_terminator
+    ';' // stmt_terminator
   ),
 
-  // component_data_declaration: $ => seq(
-  //   optional($.access_modifier),
-  //   optseq('static', 'const'),
-  //   $.data_declaration
-  // ),
+  component_data_declaration: $ => seq(
+    optional($.access_modifier),
+    optseq('static', 'const'),
+    $.data_declaration
+  ),
 
   component_pool_declaration: $ => seq(
     'pool',
@@ -692,7 +691,7 @@ const rules = {
     $.activity_action_traversal_stmt,
     // $.activity_data_field,
     $.activity_bind_stmt,
-    // $.action_handle_declaration,
+    $.action_handle_declaration,
     // $.activity_constraint_stmt,
     $.activity_scheduling_constraint,
     ';' // stmt_terminator
@@ -826,7 +825,7 @@ const rules = {
     '{', $.match_choice, repeat($.match_choice), '}'
   ),
 
-  // match_expression ::= expression
+  // match_expression: $ => expression
 
   match_choice: $ => choice(
     seq('[', $.open_range_list, ']', ':', $.activity_stmt),
@@ -877,7 +876,7 @@ const rules = {
     '{', repeat($.activity_stmt), '}'
   ),
 
-  // symbol_paramlist ::= [ symbol_param { , symbol_param } ]
+  // symbol_paramlist: $ => [ symbol_param { , symbol_param } ]
 
   symbol_param: $ => seq(
     $.data_type,
@@ -886,9 +885,260 @@ const rules = {
 
   // B.10 Overrides
 
+  override_declaration: $ => seq(
+    'override', '{', repeat($.override_stmt), '}'
+  ),
+
+  override_stmt: $ => choice(
+    $.type_override,
+    $.instance_override,
+    // $.override_compile_if,
+    ';' // stmt_terminator
+  ),
+
+  type_override: $ => seq(
+    'type', $.type_identifier, 'with', $.type_identifier, ';'
+  ),
+
+  instance_override: $ => seq(
+    'instance', $.hierarchical_id, 'with', $.type_identifier, ';'
+  ),
+
   // B.11 Data coverage specification
 
+  data_declaration: $ => seq(
+    $.data_type, $.data_instantiation,
+    repseq(',', $.data_instantiation),
+    ';'
+  ),
+
+  data_instantiation: $ => seq(
+    $.id, // identifier
+    optional($.array_dim),
+    optseq(
+      '=',
+      $.expression // constant_expression
+    )
+  ),
+
+  array_dim: $ => seq(
+    '[',
+    $.expression, // constant_expression
+    ']'
+  ),
+
+  attr_field: $ => seq(
+    optional($.access_modifier),
+    choice(
+      'rand',
+      seq('static', 'const')
+    ),
+    $.data_declaration
+  ),
+
+  access_modifier: $ => choice('public', 'protected', 'private'),
+
+  attr_group: $ => seq($.access_modifier, ':'),
+
   // B.12 Behavioral coverage specification
+
+  cover_stmt: $ => choice(
+    seq(
+      optseq(
+        $.id, // label_identifier
+        ':'
+      ),
+      'cover', $.type_identifier, ';'
+    ),
+    seq(
+      optseq(
+        $.id, // label_identifier
+        ':'
+      ),
+      'cover', '{', repeat($.monitor_body_item), '}'
+    )
+  ),
+
+  monitor_declaration: $ => seq(
+    'monitor',
+    $.id, // monitor_identifier
+    optional($.template_param_decl_list),
+    optional($.monitor_super_spec),
+    '{',
+    repeat($.monitor_body_item),
+    '}'
+  ),
+
+  abstract_monitor_declaration: $ => seq('abstract', $.monitor_declaration),
+
+  monitor_super_spec: $ => seq(':', $.type_identifier),
+
+  monitor_body_item: $ => choice(
+    $.monitor_activity_declaration,
+    $.override_declaration,
+    $.monitor_constraint_declaration,
+    $.monitor_field_declaration,
+    // $.covergroup_declaration,
+    $.attr_group,
+    // $.compile_assert_stmt,
+    // $.covergroup_instantiation,
+    // $.monitor_body_compile_if,
+    ';' // stmt_terminator
+  ),
+
+  monitor_field_declaration: $ => choice(
+    $.const_field_declaration,
+    $.action_handle_declaration,
+    // $.monitor_handle_declaration
+  ),
+
+  monitor_activity_declaration: $ => seq(
+    'activity', '{', repeat($.monitor_activity_stmt), '}'
+  ),
+
+  monitor_activity_stmt: $ => choice(
+    seq(
+      optseq(
+        $.id, // label_identifier
+        ':'
+      ),
+      $.labeled_monitor_activity_stmt
+    ),
+    $.activity_action_traversal_stmt,
+    // $.monitor_activity_monitor_traversal_stmt,
+    $.action_handle_declaration,
+    // $.monitor_handle_declaration,
+    $.monitor_activity_constraint_stmt,
+    ';' // stmt_terminator
+  ),
+
+  labeled_monitor_activity_stmt: $ => choice(
+    $.monitor_activity_sequence_block_stmt,
+    $.monitor_activity_concat_stmt,
+    $.monitor_activity_eventually_stmt,
+    $.monitor_activity_overlap_stmt,
+    $.monitor_activity_schedule_stmt
+  ),
+
+  // activity_action_traversal_stmt: $ => choice(
+  //   seq(
+  //     $.id, // identifier
+  //     optseq('[', $.expression, ']'),
+  //     $.inline_constraints_or_empty
+  //   ),
+  //   seq(
+  //     optseq(
+  //       $.id, // label_identifier
+  //       ':'
+  //     ),
+  //     'do',
+  //     $.type_identifier,
+  //     $.inline_constraints_or_empty
+  //   )
+  // ),
+
+  // inline_constraints_or_empty: $ => choice(
+  //   seq('with', $.constraint_set),
+  //   ';'
+  // ),
+
+  monitor_handle_declaration: $ => seq(
+    $.type_identifier, // monitor_type_identifier
+    $.monitor_instantiation,
+    ';'
+  ),
+
+  monitor_instantiation: $ => seq(
+    $.id, // monitor_identifier
+    optional($.array_dim),
+    repseq(
+      ',',
+      $.id, // monitor_identifier
+      optional($.array_dim)
+    )
+  ),
+
+  monitor_activity_sequence_block_stmt: $ => seq(
+    optional('sequence'), '{', repeat($.monitor_activity_stmt), '}'
+  ),
+
+  monitor_activity_concat_stmt: $ => seq(
+    'concat', '{', repeat($.monitor_activity_stmt), '}'
+  ),
+
+  monitor_activity_eventually_stmt: $ => seq(
+    'eventually', $.monitor_activity_stmt, ';'
+  ),
+
+  monitor_activity_overlap_stmt: $ => seq(
+    'overlap', '{', repeat($.monitor_activity_stmt), '}'
+  ),
+
+  monitor_activity_select_stmt: $ => seq(
+    'select', '{',
+    $.monitor_activity_stmt,
+    $.monitor_activity_stmt,
+    repeat($.monitor_activity_stmt),
+    '}'
+  ),
+
+  monitor_activity_schedule_stmt: $ => seq(
+    'schedule', '{', repeat($.monitor_activity_stmt), '}'
+  ),
+
+  monitor_activity_monitor_traversal_stmt: $ => choice(
+    seq(
+      $.id, // monitor_identifier
+      optseq('[', $.expression, ']'),
+      $.inline_constraints_or_empty
+    ),
+    seq(
+      optseq(
+        $.id, // label_identifier
+        ':'
+      ),
+      'do',
+      $.type_identifier, // monitor_type_identifier
+      $.inline_constraints_or_empty
+    )
+  ),
+
+  monitor_inline_constraints_or_empty: $ => choice(
+    seq('with', $.monitor_constraint_set),
+    ';'
+  ),
+
+  monitor_activity_constraint_stmt: $ => seq(
+    'constraint', $.monitor_constraint_set
+  ),
+
+  monitor_constraint_declaration: $ => choice(
+    seq('constraint', $.monitor_constraint_set),
+    seq('constraint',
+      $.id, // identifier
+      $.monitor_constraint_block
+    )
+  ),
+
+  monitor_constraint_set: $ => choice(
+    $.monitor_constraint_body_item,
+    $.monitor_constraint_block
+  ),
+
+  monitor_constraint_block: $ => seq(
+    '{', repeat($.monitor_constraint_body_item), '}'
+  ),
+
+  monitor_constraint_body_item: $ => choice(
+    // $.expression_constraint_item,
+    // $.foreach_constraint_item,
+    // $.forall_constraint_item,
+    // $.if_constraint_item,
+    // $.implication_constraint_item,
+    // $.unique_constraint_item,
+    // $.constraint_compile_if,
+    ';' // stmt_terminator
+  ),
 
   // B.13 Template types
 
@@ -906,7 +1156,7 @@ const rules = {
 
   type_param_decl: $ => choice(
     $.generic_type_param_decl,
-    // $.category_type_param_decl
+    $.category_type_param_decl
   ),
 
   generic_type_param_decl: $ => seq(
@@ -915,12 +1165,12 @@ const rules = {
     optseq('=', $.data_type)
   ),
 
-  // category_type_param_decl: $ => seq(
-  //   $.type_category,
-  //   $.id, // identifier
-  //   optional($.type_restriction),
-  //   optseq('=', $.type_identifier)
-  // ),
+  category_type_param_decl: $ => seq(
+    $.type_category,
+    $.id, // identifier
+    optional($.type_restriction),
+    optseq('=', $.type_identifier)
+  ),
 
   type_restriction: $ => seq(
     ':',
@@ -959,7 +1209,7 @@ const rules = {
   // B.14 Data types
 
   data_type: $ => choice(
-    // $.scalar_data_type,
+    $.scalar_data_type,
     // $.collection_type,
     $.reference_type,
     // $.type_identifier
@@ -967,10 +1217,10 @@ const rules = {
 
   scalar_data_type: $ => choice(
     $.chandle_type,
-    $.integer_type,
+    // $.integer_type,
     $.string_type,
     $.bool_type,
-    $.enum_type
+    // $.enum_type
   ),
 
   casting_type: $ => choice(
@@ -1004,7 +1254,7 @@ const rules = {
       $.expression, // constant_expression,
       optseq(
         '..',
-        $.expression, // constant_expression
+        $.expression // constant_expression
       )
     ),
     seq(

@@ -20,6 +20,26 @@
     }
   },
   {
+    "type": "abstract_monitor_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "monitor_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "access_modifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "action_body_item",
     "named": true,
     "fields": {},
@@ -32,7 +52,19 @@
           "named": true
         },
         {
+          "type": "activity_declaration",
+          "named": true
+        },
+        {
           "type": "activity_scheduling_constraint",
+          "named": true
+        },
+        {
+          "type": "attr_group",
+          "named": true
+        },
+        {
+          "type": "override_declaration",
           "named": true
         },
         {
@@ -78,7 +110,57 @@
       "required": true,
       "types": [
         {
+          "type": "action_handle_declaration",
+          "named": true
+        },
+        {
+          "type": "activity_data_field",
+          "named": true
+        },
+        {
+          "type": "attr_field",
+          "named": true
+        },
+        {
           "type": "object_ref_field_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_handle_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "action_instantiation",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_instantiation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_dim",
+          "named": true
+        },
+        {
+          "type": "id",
           "named": true
         }
       ]
@@ -174,6 +256,36 @@
         },
         {
           "type": "hierarchical_id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_data_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "data_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "activity_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "activity_stmt",
           "named": true
         }
       ]
@@ -450,6 +562,10 @@
       "required": false,
       "types": [
         {
+          "type": "action_handle_declaration",
+          "named": true
+        },
+        {
           "type": "activity_action_traversal_stmt",
           "named": true
         },
@@ -505,9 +621,58 @@
     }
   },
   {
+    "type": "array_dim",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "assign_op",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "attr_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "access_modifier",
+          "named": true
+        },
+        {
+          "type": "data_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attr_group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "access_modifier",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "binary_operator",
@@ -557,12 +722,39 @@
     }
   },
   {
+    "type": "category_type_param_decl",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "type_category",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_restriction",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "component_body_item",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "abstract_action_declaration",
@@ -570,6 +762,14 @@
         },
         {
           "type": "action_declaration",
+          "named": true
+        },
+        {
+          "type": "attr_group",
+          "named": true
+        },
+        {
+          "type": "component_data_declaration",
           "named": true
         },
         {
@@ -609,6 +809,10 @@
           "named": true
         },
         {
+          "type": "override_declaration",
+          "named": true
+        },
+        {
           "type": "procedural_function",
           "named": true
         },
@@ -618,6 +822,25 @@
         },
         {
           "type": "typedef_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "component_data_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "access_modifier",
+          "named": true
+        },
+        {
+          "type": "data_declaration",
           "named": true
         }
       ]
@@ -685,6 +908,63 @@
     }
   },
   {
+    "type": "const_field_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "data_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "data_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_instantiation",
+          "named": true
+        },
+        {
+          "type": "data_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "data_instantiation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_dim",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "data_type",
     "named": true,
     "fields": {},
@@ -694,6 +974,10 @@
       "types": [
         {
           "type": "reference_type",
+          "named": true
+        },
+        {
+          "type": "scalar_data_type",
           "named": true
         }
       ]
@@ -1276,6 +1560,25 @@
     "fields": {}
   },
   {
+    "type": "instance_override",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "hierarchical_id",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "integer_atom_type",
     "named": true,
     "fields": {}
@@ -1363,6 +1666,37 @@
     }
   },
   {
+    "type": "labeled_monitor_activity_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "monitor_activity_concat_stmt",
+          "named": true
+        },
+        {
+          "type": "monitor_activity_eventually_stmt",
+          "named": true
+        },
+        {
+          "type": "monitor_activity_overlap_stmt",
+          "named": true
+        },
+        {
+          "type": "monitor_activity_schedule_stmt",
+          "named": true
+        },
+        {
+          "type": "monitor_activity_sequence_block_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "map_literal",
     "named": true,
     "fields": {},
@@ -1429,6 +1763,315 @@
         },
         {
           "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_activity_concat_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "monitor_activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_activity_constraint_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "monitor_constraint_set",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_activity_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "monitor_activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_activity_eventually_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "monitor_activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_activity_overlap_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "monitor_activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_activity_schedule_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "monitor_activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_activity_sequence_block_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "monitor_activity_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_activity_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "action_handle_declaration",
+          "named": true
+        },
+        {
+          "type": "activity_action_traversal_stmt",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "labeled_monitor_activity_stmt",
+          "named": true
+        },
+        {
+          "type": "monitor_activity_constraint_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_body_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "attr_group",
+          "named": true
+        },
+        {
+          "type": "monitor_activity_declaration",
+          "named": true
+        },
+        {
+          "type": "monitor_constraint_declaration",
+          "named": true
+        },
+        {
+          "type": "monitor_field_declaration",
+          "named": true
+        },
+        {
+          "type": "override_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_constraint_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "monitor_constraint_body_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_constraint_body_item",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "monitor_constraint_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "monitor_constraint_block",
+          "named": true
+        },
+        {
+          "type": "monitor_constraint_set",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_constraint_set",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "monitor_constraint_block",
+          "named": true
+        },
+        {
+          "type": "monitor_constraint_body_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "monitor_body_item",
+          "named": true
+        },
+        {
+          "type": "monitor_super_spec",
+          "named": true
+        },
+        {
+          "type": "template_param_decl_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_field_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "action_handle_declaration",
+          "named": true
+        },
+        {
+          "type": "const_field_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_instantiation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_dim",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_super_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "type_identifier",
           "named": true
         }
       ]
@@ -1535,9 +2178,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "array_dim",
+          "named": true
+        },
         {
           "type": "id",
           "named": true
@@ -1595,6 +2242,40 @@
     }
   },
   {
+    "type": "override_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "override_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "override_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "instance_override",
+          "named": true
+        },
+        {
+          "type": "type_override",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "package_body_item",
     "named": true,
     "fields": {},
@@ -1607,7 +2288,15 @@
           "named": true
         },
         {
+          "type": "abstract_monitor_declaration",
+          "named": true
+        },
+        {
           "type": "component_declaration",
+          "named": true
+        },
+        {
+          "type": "const_field_declaration",
           "named": true
         },
         {
@@ -1875,6 +2564,10 @@
       "required": true,
       "types": [
         {
+          "type": "array_dim",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         },
@@ -2131,6 +2824,10 @@
         {
           "type": "procedural_void_function_call_stmt",
           "named": true
+        },
+        {
+          "type": "procedural_yield_stmt",
+          "named": true
         }
       ]
     }
@@ -2149,6 +2846,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "procedural_yield_stmt",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "ref_path",
@@ -2202,6 +2904,29 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "scalar_data_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "bool_type",
+          "named": true
+        },
+        {
+          "type": "chandle_type",
+          "named": true
+        },
+        {
+          "type": "string_type",
           "named": true
         }
       ]
@@ -2298,6 +3023,14 @@
       "multiple": false,
       "required": false,
       "types": [
+        {
+          "type": "attr_field",
+          "named": true
+        },
+        {
+          "type": "attr_group",
+          "named": true
+        },
         {
           "type": "exec_block_stmt",
           "named": true
@@ -2609,6 +3342,21 @@
     }
   },
   {
+    "type": "type_override",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type_param_decl",
     "named": true,
     "fields": {},
@@ -2617,7 +3365,26 @@
       "required": true,
       "types": [
         {
+          "type": "category_type_param_decl",
+          "named": true
+        },
+        {
           "type": "generic_type_param_decl",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_restriction",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "type_identifier",
           "named": true
         }
       ]
@@ -2842,6 +3609,10 @@
     "named": false
   },
   {
+    "type": "activity",
+    "named": false
+  },
+  {
     "type": "activity_join_none",
     "named": true
   },
@@ -2898,11 +3669,23 @@
     "named": false
   },
   {
+    "type": "concat",
+    "named": false
+  },
+  {
+    "type": "const",
+    "named": false
+  },
+  {
     "type": "constraint",
     "named": false
   },
   {
     "type": "continue",
+    "named": false
+  },
+  {
+    "type": "cover",
     "named": false
   },
   {
@@ -2919,6 +3702,10 @@
   },
   {
     "type": "enum",
+    "named": false
+  },
+  {
+    "type": "eventually",
     "named": false
   },
   {
@@ -2986,6 +3773,10 @@
     "named": false
   },
   {
+    "type": "instance",
+    "named": false
+  },
+  {
     "type": "int",
     "named": false
   },
@@ -3018,11 +3809,23 @@
     "named": false
   },
   {
+    "type": "monitor",
+    "named": false
+  },
+  {
     "type": "null_ref",
     "named": true
   },
   {
     "type": "output",
+    "named": false
+  },
+  {
+    "type": "overlap",
+    "named": false
+  },
+  {
+    "type": "override",
     "named": false
   },
   {
@@ -3042,7 +3845,23 @@
     "named": false
   },
   {
+    "type": "private",
+    "named": false
+  },
+  {
+    "type": "protected",
+    "named": false
+  },
+  {
+    "type": "public",
+    "named": false
+  },
+  {
     "type": "pure",
+    "named": false
+  },
+  {
+    "type": "rand",
     "named": false
   },
   {
@@ -3135,6 +3954,14 @@
   },
   {
     "type": "while",
+    "named": false
+  },
+  {
+    "type": "with",
+    "named": false
+  },
+  {
+    "type": "yield",
     "named": false
   },
   {
