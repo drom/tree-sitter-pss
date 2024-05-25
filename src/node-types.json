@@ -40,6 +40,40 @@
     "fields": {}
   },
   {
+    "type": "action_body_compile_if",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "action_body_compile_if_item",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "action_body_compile_if_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "action_body_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "action_body_item",
     "named": true,
     "fields": {},
@@ -47,6 +81,10 @@
       "multiple": false,
       "required": false,
       "types": [
+        {
+          "type": "action_body_compile_if",
+          "named": true
+        },
         {
           "type": "action_field_declaration",
           "named": true
@@ -61,6 +99,18 @@
         },
         {
           "type": "attr_group",
+          "named": true
+        },
+        {
+          "type": "compile_assert_stmt",
+          "named": true
+        },
+        {
+          "type": "constraint_declaration",
+          "named": true
+        },
+        {
+          "type": "covergroup_declaration",
           "named": true
         },
         {
@@ -602,10 +652,6 @@
       "required": true,
       "types": [
         {
-          "type": "empty_aggregate_literal",
-          "named": true
-        },
-        {
           "type": "map_literal",
           "named": true
         },
@@ -680,6 +726,26 @@
     "fields": {}
   },
   {
+    "type": "bins_keyword",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "bins_or_empty",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "covergroup_coverpoint_body_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "bit_slice",
     "named": true,
     "fields": {},
@@ -749,6 +815,74 @@
     }
   },
   {
+    "type": "compile_assert_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "compile_has_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "static_ref_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "component_body_compile_if",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "component_body_compile_if_item",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "component_body_compile_if_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "component_body_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "component_body_item",
     "named": true,
     "fields": {},
@@ -769,11 +903,23 @@
           "named": true
         },
         {
+          "type": "compile_assert_stmt",
+          "named": true
+        },
+        {
+          "type": "component_body_compile_if",
+          "named": true
+        },
+        {
           "type": "component_data_declaration",
           "named": true
         },
         {
           "type": "component_pool_declaration",
+          "named": true
+        },
+        {
+          "type": "covergroup_declaration",
           "named": true
         },
         {
@@ -814,6 +960,10 @@
         },
         {
           "type": "procedural_function",
+          "named": true
+        },
+        {
+          "type": "struct_declaration",
           "named": true
         },
         {
@@ -923,6 +1073,492 @@
     }
   },
   {
+    "type": "constraint_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "constraint_body_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constraint_body_compile_if_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "constraint_body_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constraint_body_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dist_directive",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "expression_constraint_item",
+          "named": true
+        },
+        {
+          "type": "foreach_constraint_item",
+          "named": true
+        },
+        {
+          "type": "hierarchical_id",
+          "named": true
+        },
+        {
+          "type": "if_constraint_item",
+          "named": true
+        },
+        {
+          "type": "implication_constraint_item",
+          "named": true
+        },
+        {
+          "type": "unique_constraint_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constraint_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "constraint_block",
+          "named": true
+        },
+        {
+          "type": "constraint_set",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constraint_set",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "constraint_block",
+          "named": true
+        },
+        {
+          "type": "constraint_body_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_body_compile_if",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "covergroup_body_compile_if_item",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_body_compile_if_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "covergroup_body_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_body_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "covergroup_body_compile_if",
+          "named": true
+        },
+        {
+          "type": "covergroup_coverpoint",
+          "named": true
+        },
+        {
+          "type": "covergroup_cross",
+          "named": true
+        },
+        {
+          "type": "covergroup_option",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_coverpoint",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bins_or_empty",
+          "named": true
+        },
+        {
+          "type": "data_type",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_coverpoint_binspec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bins_keyword",
+          "named": true
+        },
+        {
+          "type": "coverpoint_bins",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_coverpoint_body_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "covergroup_coverpoint_binspec",
+          "named": true
+        },
+        {
+          "type": "covergroup_option",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_cross",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cross_item_or_null",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "covergroup_body_item",
+          "named": true
+        },
+        {
+          "type": "covergroup_port",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_instantiation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "covergroup_type_instantiation",
+          "named": true
+        },
+        {
+          "type": "inline_covergroup",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_option",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_options_or_empty",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "covergroup_option",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_port",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_type",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_portmap",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "hierarchical_id",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_portmap_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "covergroup_portmap",
+          "named": true
+        },
+        {
+          "type": "hierarchical_id_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_range_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "covergroup_value_range",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_type_instantiation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "covergroup_options_or_empty",
+          "named": true
+        },
+        {
+          "type": "covergroup_portmap_list",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covergroup_value_range",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "coverpoint_bins",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "covergroup_range_list",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cross_item_or_null",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "data_declaration",
     "named": true,
     "fields": {},
@@ -984,6 +1620,74 @@
     }
   },
   {
+    "type": "dist_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "dist_list",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dist_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "dist_weight",
+          "named": true
+        },
+        {
+          "type": "open_range_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dist_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "dist_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dist_weight",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "domain_open_range_list",
     "named": true,
     "fields": {},
@@ -1012,11 +1716,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "empty_aggregate_literal",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "enum_declaration",
@@ -1093,29 +1792,6 @@
         },
         {
           "type": "exec_stmt",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "exec_block_stmt",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "exec_block",
-          "named": true
-        },
-        {
-          "type": "target_code_exec_block",
-          "named": true
-        },
-        {
-          "type": "target_file_exec_block",
           "named": true
         }
       ]
@@ -1200,6 +1876,21 @@
     }
   },
   {
+    "type": "expression_constraint_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "extend_stmt",
     "named": true,
     "fields": {},
@@ -1217,6 +1908,14 @@
         },
         {
           "type": "enum_item",
+          "named": true
+        },
+        {
+          "type": "struct_body_item",
+          "named": true
+        },
+        {
+          "type": "struct_kind",
           "named": true
         },
         {
@@ -1240,6 +1939,29 @@
         },
         {
           "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "foreach_constraint_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "constraint_set",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "id",
           "named": true
         }
       ]
@@ -1460,6 +2182,44 @@
     }
   },
   {
+    "type": "if_constraint_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "constraint_set",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "implication_constraint_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "constraint_set",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "import_class_decl",
     "named": true,
     "fields": {},
@@ -1558,6 +2318,25 @@
     "type": "inline_constraints_or_empty",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "inline_covergroup",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "covergroup_body_item",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "instance_override",
@@ -1905,6 +2684,40 @@
     }
   },
   {
+    "type": "monitor_body_compile_if",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "monitor_body_compile_if_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "monitor_body_compile_if_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "monitor_body_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "monitor_body_item",
     "named": true,
     "fields": {},
@@ -1917,7 +2730,19 @@
           "named": true
         },
         {
+          "type": "compile_assert_stmt",
+          "named": true
+        },
+        {
+          "type": "covergroup_declaration",
+          "named": true
+        },
+        {
           "type": "monitor_activity_declaration",
+          "named": true
+        },
+        {
+          "type": "monitor_body_compile_if",
           "named": true
         },
         {
@@ -1953,7 +2778,33 @@
   {
     "type": "monitor_constraint_body_item",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "expression_constraint_item",
+          "named": true
+        },
+        {
+          "type": "foreach_constraint_item",
+          "named": true
+        },
+        {
+          "type": "if_constraint_item",
+          "named": true
+        },
+        {
+          "type": "implication_constraint_item",
+          "named": true
+        },
+        {
+          "type": "unique_constraint_item",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "monitor_constraint_declaration",
@@ -2242,6 +3093,40 @@
     }
   },
   {
+    "type": "override_compile_if",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "override_compile_if_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "override_compile_if_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "override_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "override_declaration",
     "named": true,
     "fields": {},
@@ -2269,7 +3154,45 @@
           "named": true
         },
         {
+          "type": "override_compile_if",
+          "named": true
+        },
+        {
           "type": "type_override",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "package_body_compile_if",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "package_body_compile_if_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "package_body_compile_if_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "package_body_item",
           "named": true
         }
       ]
@@ -2292,11 +3215,19 @@
           "named": true
         },
         {
+          "type": "compile_assert_stmt",
+          "named": true
+        },
+        {
           "type": "component_declaration",
           "named": true
         },
         {
           "type": "const_field_declaration",
+          "named": true
+        },
+        {
+          "type": "covergroup_declaration",
           "named": true
         },
         {
@@ -2328,11 +3259,19 @@
           "named": true
         },
         {
+          "type": "package_body_compile_if",
+          "named": true
+        },
+        {
           "type": "package_declaration",
           "named": true
         },
         {
           "type": "procedural_function",
+          "named": true
+        },
+        {
+          "type": "struct_declaration",
           "named": true
         },
         {
@@ -2485,6 +3424,10 @@
           "named": true
         },
         {
+          "type": "compile_has_expr",
+          "named": true
+        },
+        {
           "type": "null_ref",
           "named": true
         },
@@ -2530,6 +3473,40 @@
     "type": "procedural_break_stmt",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "procedural_compile_if",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "procedural_compile_if_stmt",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "procedural_compile_if_stmt",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "procedural_stmt",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "procedural_continue_stmt",
@@ -2786,6 +3763,10 @@
           "named": true
         },
         {
+          "type": "procedural_compile_if",
+          "named": true
+        },
+        {
           "type": "procedural_continue_stmt",
           "named": true
         },
@@ -3016,6 +3997,40 @@
     }
   },
   {
+    "type": "struct_body_compile_if",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "struct_body_compile_if_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "struct_body_compile_if_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "struct_body_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "struct_body_item",
     "named": true,
     "fields": {},
@@ -3032,11 +4047,58 @@
           "named": true
         },
         {
-          "type": "exec_block_stmt",
+          "type": "compile_assert_stmt",
+          "named": true
+        },
+        {
+          "type": "constraint_declaration",
+          "named": true
+        },
+        {
+          "type": "covergroup_declaration",
+          "named": true
+        },
+        {
+          "type": "covergroup_instantiation",
+          "named": true
+        },
+        {
+          "type": "struct_body_compile_if",
           "named": true
         },
         {
           "type": "typedef_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "struct_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "struct_body_item",
+          "named": true
+        },
+        {
+          "type": "struct_kind",
+          "named": true
+        },
+        {
+          "type": "struct_super_spec",
+          "named": true
+        },
+        {
+          "type": "template_param_decl_list",
           "named": true
         }
       ]
@@ -3415,6 +4477,21 @@
     "fields": {}
   },
   {
+    "type": "unique_constraint_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "hierarchical_id_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "value_list_literal",
     "named": true,
     "fields": {},
@@ -3513,6 +4590,10 @@
     "named": false
   },
   {
+    "type": "->",
+    "named": false
+  },
+  {
     "type": ".",
     "named": false
   },
@@ -3537,7 +4618,15 @@
     "named": false
   },
   {
+    "type": ":/",
+    "named": false
+  },
+  {
     "type": "::",
+    "named": false
+  },
+  {
+    "type": ":=",
     "named": false
   },
   {
@@ -3625,11 +4714,19 @@
     "named": false
   },
   {
+    "type": "assert",
+    "named": false
+  },
+  {
     "type": "atomic",
     "named": false
   },
   {
     "type": "bind",
+    "named": false
+  },
+  {
+    "type": "bins",
     "named": false
   },
   {
@@ -3665,6 +4762,10 @@
     "named": true
   },
   {
+    "type": "compile",
+    "named": false
+  },
+  {
     "type": "component",
     "named": false
   },
@@ -3689,11 +4790,35 @@
     "named": false
   },
   {
+    "type": "covergroup",
+    "named": false
+  },
+  {
+    "type": "coverpoint",
+    "named": false
+  },
+  {
+    "type": "cross",
+    "named": false
+  },
+  {
     "type": "default",
     "named": false
   },
   {
+    "type": "disable",
+    "named": false
+  },
+  {
+    "type": "dist",
+    "named": false
+  },
+  {
     "type": "do",
+    "named": false
+  },
+  {
+    "type": "dynamic",
     "named": false
   },
   {
@@ -3741,6 +4866,10 @@
     "named": true
   },
   {
+    "type": "forall",
+    "named": false
+  },
+  {
     "type": "foreach",
     "named": false
   },
@@ -3749,11 +4878,27 @@
     "named": false
   },
   {
+    "type": "has",
+    "named": false
+  },
+  {
     "type": "id",
     "named": true
   },
   {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "iff",
+    "named": false
+  },
+  {
+    "type": "ignore_bins",
+    "named": false
+  },
+  {
+    "type": "illegal_bins",
     "named": false
   },
   {
@@ -3815,6 +4960,10 @@
   {
     "type": "null_ref",
     "named": true
+  },
+  {
+    "type": "option",
+    "named": false
   },
   {
     "type": "output",
@@ -3946,6 +5095,10 @@
   },
   {
     "type": "typedef",
+    "named": false
+  },
+  {
+    "type": "unique",
     "named": false
   },
   {

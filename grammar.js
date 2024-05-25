@@ -46,9 +46,9 @@ const rules = {
   package_body_item: $ => choice(
     $.abstract_action_declaration,
     $.abstract_monitor_declaration, // 3.0
-    // $.struct_declaration,
+    $.struct_declaration,
     $.enum_declaration,
-    // $.covergroup_declaration,
+    $.covergroup_declaration,
     $.function_decl,
     $.import_class_decl,
     $.procedural_function,
@@ -61,9 +61,9 @@ const rules = {
     $.const_field_declaration,
     $.component_declaration,
     $.package_declaration,
-    // $.compile_assert_stmt,
-    // $.package_body_compile_if,
-    token(';') // stmt_terminator
+    $.compile_assert_stmt,
+    $.package_body_compile_if,
+    ';' // stmt_terminator
   ),
 
   import_stmt: $ => seq(
@@ -82,42 +82,14 @@ const rules = {
   package_import_wildcard: $ => '::*',
 
   package_import_alias: $ => seq(
-    'as',
-    $.id // package_identifier
+    'as', $.id // package_identifier
   ),
 
   extend_stmt: $ => choice(
-    seq(
-      'extend', 'action',
-      $.type_identifier,
-      '{',
-      repeat($.action_body_item),
-      '}'
-    ),
-    seq(
-      'extend', 'component',
-      $.type_identifier,
-      '{',
-      repeat($.component_body_item),
-      '}'
-    ),
-    // seq(
-    //   'extend', $.struct_kind,
-    //   $.type_identifier,
-    //   '{',
-    //   repeat($.struct_body_item),
-    //   '}'
-    // ),
-    seq(
-      'extend', 'enum',
-      $.type_identifier,
-      '{',
-      optseq(
-        $.enum_item,
-        repseq(',', $.enum_item)
-      ),
-      '}'
-    )
+    seq('extend', 'action',       $.type_identifier, '{', repeat($.action_body_item),                     '}'),
+    seq('extend', 'component',    $.type_identifier, '{', repeat($.component_body_item),                  '}'),
+    seq('extend', $.struct_kind,  $.type_identifier, '{', repeat($.struct_body_item),                     '}'),
+    seq('extend', 'enum',         $.type_identifier, '{', optseq($.enum_item, repseq(',', $.enum_item)),  '}')
   ),
 
   const_field_declaration: $ => seq(
@@ -143,16 +115,16 @@ const rules = {
   action_body_item: $ => choice(
     $.activity_declaration,
     $.override_declaration,
-    // $.constraint_declaration,
+    $.constraint_declaration,
     $.action_field_declaration,
     $.symbol_declaration,
-    // $.covergroup_declaration,
+    $.covergroup_declaration,
     // $.exec_block_stmt,
     $.activity_scheduling_constraint,
     $.attr_group,
-    // $.compile_assert_stmt,
+    $.compile_assert_stmt,
     // $.covergroup_instantiation,
-    // $.action_body_compile_if,
+    $.action_body_compile_if,
     ';' // stmt_terminator
   ),
 
@@ -225,13 +197,8 @@ const rules = {
   activity_data_field: $ => seq('action', $.data_declaration),
 
   activity_scheduling_constraint: $ => seq(
-    'constraint', /(parallel|sequence)/,
-    '{',
-    $.hierarchical_id,
-    ',',
-    $.hierarchical_id,
-    repseq(',', $.hierarchical_id),
-    '}',
+    'constraint', choice('parallel', 'sequence'),
+    '{', $.hierarchical_id, ',', $.hierarchical_id, repseq(',', $.hierarchical_id), '}',
     ';'
   ),
 
@@ -242,9 +209,7 @@ const rules = {
     $.id, // identifier
     optional($.template_param_decl_list),
     optional($.struct_super_spec),
-    '{',
-    repeat($.struct_body_item),
-    '}'
+    '{', repeat($.struct_body_item), '}'
   ),
 
   struct_kind: $ => choice(
@@ -253,29 +218,32 @@ const rules = {
   ),
 
   object_kind: $ => choice(
-    'buffer', 'stream', 'state', 'resource'
+    'buffer',
+    'stream',
+    'state',
+    'resource'
   ),
 
   struct_super_spec: $ => seq(':', $.type_identifier),
 
   struct_body_item: $ => choice(
-    // $.constraint_declaration,
+    $.constraint_declaration,
     $.attr_field,
     $.typedef_declaration,
-    $.exec_block_stmt,
+    // $.exec_block_stmt,
     $.attr_group,
-    // $.compile_assert_stmt,
-    // $.covergroup_declaration,
-    // $.covergroup_instantiation,
-    // $.struct_body_compile_if,
+    $.compile_assert_stmt,
+    $.covergroup_declaration,
+    $.covergroup_instantiation,
+    $.struct_body_compile_if,
     ';'
   ),
 
   // B.4 Exec blocks
 
   exec_block_stmt: $ => choice(
-    $.exec_block ,
-    $.target_code_exec_block ,
+    $.exec_block,
+    $.target_code_exec_block,
     $.target_file_exec_block,
     ';'
   ),
@@ -352,20 +320,8 @@ const rules = {
   ),
 
   function_parameter_list_prototype: $ => choice(
-    seq(
-      '(',
-      optseq(
-        $.function_parameter,
-        repseq(',', $.function_parameter)
-      ),
-      ')'
-    ),
-    seq(
-      '(',
-      repseq($.function_parameter, ','),
-      $.varargs_parameter,
-      ')'
-    )
+    seq('(', optseq($.function_parameter, repseq(',', $.function_parameter)), ')'),
+    seq('(', repseq($.function_parameter, ','), $.varargs_parameter, ')')
   ),
 
   function_parameter: $ => choice(
@@ -466,7 +422,7 @@ const rules = {
     $.procedural_break_stmt,
     $.procedural_continue_stmt,
     $.procedural_randomization_stmt,
-    // $.procedural_compile_if,
+    $.procedural_compile_if,
     $.procedural_yield_stmt, // 3.0
     ';'
   ),
@@ -601,9 +557,9 @@ const rules = {
     $.abstract_action_declaration,
     $.object_bind_stmt,
     // $.exec_block,
-    // $.struct_declaration,
+    $.struct_declaration,
     $.enum_declaration,
-    // $.covergroup_declaration,
+    $.covergroup_declaration,
     $.function_decl,
     $.import_class_decl,
     $.procedural_function,
@@ -613,9 +569,9 @@ const rules = {
     $.typedef_declaration,
     $.import_stmt,
     $.extend_stmt,
-    // $.compile_assert_stmt,
+    $.compile_assert_stmt,
     $.attr_group,
-    // $.component_body_compile_if,
+    $.component_body_compile_if,
     ';' // stmt_terminator
   ),
 
@@ -892,7 +848,7 @@ const rules = {
   override_stmt: $ => choice(
     $.type_override,
     $.instance_override,
-    // $.override_compile_if,
+    $.override_compile_if,
     ';' // stmt_terminator
   ),
 
@@ -978,11 +934,11 @@ const rules = {
     $.override_declaration,
     $.monitor_constraint_declaration,
     $.monitor_field_declaration,
-    // $.covergroup_declaration,
+    $.covergroup_declaration,
     $.attr_group,
-    // $.compile_assert_stmt,
+    $.compile_assert_stmt,
     // $.covergroup_instantiation,
-    // $.monitor_body_compile_if,
+    $.monitor_body_compile_if,
     ';' // stmt_terminator
   ),
 
@@ -1130,12 +1086,12 @@ const rules = {
   ),
 
   monitor_constraint_body_item: $ => choice(
-    // $.expression_constraint_item,
-    // $.foreach_constraint_item,
+    $.expression_constraint_item,
+    $.foreach_constraint_item,
     // $.forall_constraint_item,
-    // $.if_constraint_item,
-    // $.implication_constraint_item,
-    // $.unique_constraint_item,
+    $.if_constraint_item,
+    $.implication_constraint_item,
+    $.unique_constraint_item,
     // $.constraint_compile_if,
     ';' // stmt_terminator
   ),
@@ -1328,9 +1284,261 @@ const rules = {
 
   // B.15 Constraints
 
+  constraint_declaration: $ => choice(
+    seq('constraint', $.constraint_set),
+    seq(
+      optional('dynamic'),
+      'constraint',
+      $.id, // identifier
+      $.constraint_block
+    )
+  ),
+
+  constraint_set: $ => choice(
+    $.constraint_body_item,
+    $.constraint_block
+  ),
+
+  constraint_block: $ => seq(
+    '{', repeat($.constraint_body_item), '}'
+  ),
+
+  constraint_body_item: $ => choice(
+    $.expression_constraint_item,
+    $.foreach_constraint_item,
+    // $.forall_constraint_item,
+    $.if_constraint_item,
+    $.implication_constraint_item,
+    $.unique_constraint_item,
+    seq('default', $.hierarchical_id, '==', $.expression, // constant_expression
+      ';'
+    ),
+    seq('default', 'disable', $.hierarchical_id, ';'),
+    $.dist_directive,
+    // $.constraint_body_compile_if,
+    ';' // stmt_terminator
+  ),
+
+  expression_constraint_item: $ => seq($.expression, ';'),
+
+  foreach_constraint_item: $ => seq(
+    'foreach', '(',
+    optseq(
+      $.id, // iterator_identifier,
+      ':'
+    ),
+    $.expression,
+    optseq(
+      '[',
+      $.id, // index_identifier
+      ']'
+    ),
+    ')',
+    $.constraint_set
+  ),
+
+  forall_constraint_item: $ => seq(
+    'forall', '(',
+    $.id, // iterator_identifier
+    ':',
+    $.type_identifier,
+    optseq('in', $.ref_path),
+    ')',
+    $.constraint_set
+  ),
+
+  if_constraint_item: $ => prec.left(seq(
+    'if', '(', $.expression, ')', $.constraint_set, optseq('else', $.constraint_set)
+  )),
+
+  implication_constraint_item: $ => seq($.expression, '->', $.constraint_set),
+
+  unique_constraint_item: $ => seq('unique', '{', $.hierarchical_id_list, '}', ';'),
+
+  dist_directive: $ => seq('dist', $.expression, 'in', '[', $.dist_list, ']', ';'),
+
+  dist_list: $ => seq($.dist_item, repseq(',', $.dist_item)),
+
+  dist_item: $ => seq($.open_range_value, optional($.dist_weight)),
+
+  dist_weight: $ => choice(
+    seq(':=', $.expression),
+    seq(':/', $.expression)
+  ),
+
   // B.16 Coverage specification
 
+  covergroup_declaration: $ => seq(
+    'covergroup', $.id, // covergroup_identifier
+    '(', $.covergroup_port, repseq(',', $.covergroup_port), ')',
+    '{', repeat($.covergroup_body_item), '}'
+  ),
+
+  covergroup_port: $ => seq(
+    $.data_type, $.id // identifier
+  ),
+
+  covergroup_body_item: $ => choice(
+    $.covergroup_option,
+    $.covergroup_coverpoint,
+    $.covergroup_cross,
+    $.covergroup_body_compile_if,
+    ';' // stmt_terminator
+  ),
+
+  covergroup_option: $ => seq(
+    'option', '.', $.id, // identifier
+    '=', $.expression, // constant_expression
+    ';'
+  ),
+
+  covergroup_instantiation: $ => choice(
+    $.covergroup_type_instantiation,
+    $.inline_covergroup
+  ),
+
+  inline_covergroup: $ => seq(
+    'covergroup', '{',
+    repeat($.covergroup_body_item),
+    '}',
+    $.id, // identifier
+    ';'
+  ),
+
+  covergroup_type_instantiation: $ => seq(
+    $.id, // covergroup_type_identifier
+    $.id, // covergroup_identifier
+    '(', $.covergroup_portmap_list, ')',
+    $.covergroup_options_or_empty
+  ),
+
+  covergroup_portmap_list: $ => choice(
+    seq($.covergroup_portmap, repseq(',', $.covergroup_portmap)),
+    $.hierarchical_id_list
+  ),
+
+  covergroup_portmap: $ => seq(
+    '.',
+    $.id, // identifier
+    '(', $.hierarchical_id, ')'
+  ),
+
+  covergroup_options_or_empty: $ => choice(
+    seq('with', '{', repeat($.covergroup_option), '}'),
+    ';'
+  ),
+
+  covergroup_coverpoint: $ => seq(
+    optseq(
+      optional($.data_type),
+      $.id, // coverpoint_identifier
+      ':'
+    ),
+    'coverpoint',
+    $.expression,
+    optseq('iff', '(', $.expression, ')'),
+    $.bins_or_empty
+  ),
+
+  bins_or_empty: $ => choice(
+    seq('{', $.covergroup_coverpoint_body_item, '}'),
+    ';'
+  ),
+
+  covergroup_coverpoint_body_item: $ => choice(
+    $.covergroup_option,
+    $.covergroup_coverpoint_binspec
+  ),
+
+  covergroup_coverpoint_binspec: $ => seq(
+    $.bins_keyword,
+    $.id, // identifier
+    optseq(
+      '[',
+      optional(
+        $.expression // constant_expression
+      ),
+      ']'
+    ),
+    '=', $.coverpoint_bins
+  ),
+
+  coverpoint_bins: $ => choice(
+    seq(
+      '[', $.covergroup_range_list, ']',
+      optseq(
+        'with', '(',
+        $.expression, // covergroup_expression
+        ')'
+      ),
+      ';'
+    ),
+    seq(
+      $.id, // coverpoint_identifier,
+      'with', '(',
+      $.expression, // covergroup_expression
+      ')',
+      ';'
+    ),
+    seq('default', ';')
+  ),
+
+  covergroup_range_list: $ => seq(
+    $.covergroup_value_range, repseq(',', $.covergroup_value_range)
+  ),
+
+  covergroup_value_range: $ => choice(
+    $.expression,
+    seq($.expression, '..', optional($.expression)),
+    seq(optional($.expression), '..', $.expression)
+  ),
+
+  bins_keyword: $ => choice('bins', 'illegal_bins', 'ignore_bins'),
+
+  // covergroup_expression: $ => expression
+
+  covergroup_cross: $ => seq(
+    $.id, // covercross_identifier
+    ':', 'cross',
+    $.id, // coverpoint_identifier
+    repseq(
+      ',', $.id // coverpoint_identifier
+    ),
+    optseq('iff', '(', $.expression, ')'),
+    $.cross_item_or_null
+  ),
+
+  cross_item_or_null: $ => choice(
+    seq(
+      '{',
+      // repeat($.covergroup_cross_body_item),
+      '}'
+    ),
+    ';'
+  ),
+
   // B.17 Conditional compilation
+
+  package_body_compile_if:         $ => seq('compile', 'if', '(', $.expression, /* constant_expression */ ')', $.package_body_compile_if_item,    optseq('else', $.package_body_compile_if_item)),
+  monitor_body_compile_if:         $ => seq('compile', 'if', '(', $.expression, /* constant_expression */ ')', $.monitor_body_compile_if_item,    optseq('else', $.monitor_body_compile_if_item)),
+  action_body_compile_if:          $ => seq('compile', 'if', '(', $.expression, /* constant_expression */ ')', $.action_body_compile_if_item,     optseq('else', $.action_body_compile_if_item)),
+  component_body_compile_if:       $ => seq('compile', 'if', '(', $.expression, /* constant_expression */ ')', $.component_body_compile_if_item,  optseq('else', $.component_body_compile_if_item)),
+  struct_body_compile_if:          $ => seq('compile', 'if', '(', $.expression, /* constant_expression */ ')', $.struct_body_compile_if_item,     optseq('else', $.struct_body_compile_if_item)),
+  procedural_compile_if:           $ => seq('compile', 'if', '(', $.expression, /* constant_expression */ ')', $.procedural_compile_if_stmt,      optseq('else', $.procedural_compile_if_stmt)),
+  constraint_body_compile_if:      $ => seq('compile', 'if', '(', $.expression, /* constant_expression */ ')', $.constraint_body_compile_if_item, optseq('else', $.constraint_body_compile_if_item)),
+  covergroup_body_compile_if:      $ => seq('compile', 'if', '(', $.expression, /* constant_expression */ ')', $.covergroup_body_compile_if_item, optseq('else', $.covergroup_body_compile_if_item)),
+  override_compile_if:             $ => seq('compile', 'if', '(', $.expression, /* constant_expression */ ')', $.override_compile_if_stmt,        optseq('else', $.override_compile_if_stmt)),
+  package_body_compile_if_item:    $ => seq('{', repeat($.package_body_item),    '}'),
+  action_body_compile_if_item:     $ => seq('{', repeat($.action_body_item),     '}'),
+  monitor_body_compile_if_item:    $ => seq('{', repeat($.monitor_body_item),    '}'),
+  component_body_compile_if_item:  $ => seq('{', repeat($.component_body_item),  '}'),
+  struct_body_compile_if_item:     $ => seq('{', repeat($.struct_body_item),     '}'),
+  procedural_compile_if_stmt:      $ => seq('{', repeat($.procedural_stmt),      '}'),
+  constraint_body_compile_if_item: $ => seq('{', repeat($.constraint_body_item), '}'),
+  covergroup_body_compile_if_item: $ => seq('{', repeat($.covergroup_body_item), '}'),
+  override_compile_if_stmt:        $ => seq('{', repeat($.override_stmt),        '}'),
+  compile_has_expr:                $ => seq('compile', 'has',     '(', $.static_ref_path,     ')'),
+  compile_assert_stmt:             $ => seq('compile', 'assert',  '(', $.expression, /* $.constant_expression */ optseq(',', $.string_literal), ')', ';'),
 
   // B.18 Expressions
 
@@ -1390,7 +1598,7 @@ const rules = {
     $.null_ref,
     $.paren_expr,
     // $.cast_expression,
-    // $.compile_has_expr
+    $.compile_has_expr
   ),
 
   paren_expr: $ => seq('(', $.expression, ')'),
@@ -1403,23 +1611,11 @@ const rules = {
   ),
 
   ref_path: $ => choice(
-    seq(
-      $.static_ref_path,
-      optseq('.', $.hierarchical_id),
-      optional($.bit_slice)
-    ),
-    seq(
-      optseq('super', '.'),
-      $.hierarchical_id,
-      optional($.bit_slice)
-    )
+    seq($.static_ref_path, optseq('.', $.hierarchical_id), optional($.bit_slice)),
+    seq(optseq('super', '.'), $.hierarchical_id, optional($.bit_slice))
   ),
 
-  static_ref_path: $ => seq(
-    optional('::'),
-    repseq($.type_identifier_elem, '::'),
-    $.member_path_elem
-  ),
+  static_ref_path: $ => seq(optional('::'), repseq($.type_identifier_elem, '::'), $.member_path_elem),
 
   bit_slice: $ => seq(
     '[',
@@ -1451,10 +1647,7 @@ const rules = {
   ),
 
   function_parameter_list: $ => seq(
-    '(', optseq(
-      $.expression,
-      repseq(',', $.expression),
-    ), ')'
+    '(', optseq( $.expression, repseq(',', $.expression)), ')'
   ),
 
   // B.19 Identifiers
@@ -1512,7 +1705,7 @@ const rules = {
   )),
 
   aggregate_literal: $ => choice(
-    $.empty_aggregate_literal,
+    // $.empty_aggregate_literal,
     $.value_list_literal,
     $.map_literal,
     $.struct_literal
